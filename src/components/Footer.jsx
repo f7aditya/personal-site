@@ -14,9 +14,9 @@ export default function Footer() {
         </p>
 
         <div className="flex items-center gap-6 text-sm font-medium text-[var(--fg-muted)]">
-          <a href="#" className="hover:text-[var(--accent)] transition-colors">GitHub</a>
-          <a href="#" className="hover:text-[var(--accent)] transition-colors">LinkedIn</a>
-          <a href="#" className="hover:text-[var(--accent)] transition-colors">Twitter</a>
+          <a href="https://github.com/f7aditya" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--accent)] transition-colors">GitHub</a>
+          <a href="https://www.linkedin.com/in/adityavermaf7/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--accent)] transition-colors">LinkedIn</a>
+          <a href="https://x.com/f7_aditya" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--accent)] transition-colors">Twitter</a>
         </div>
       </div>
     </footer>

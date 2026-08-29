@@ -43,14 +43,14 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-32">
+    <section id="contact" className="py-16 md:py-20">
       <div className="max-w-4xl mx-auto px-6 text-center">
         <FadeIn>
           <p className="section-label">Get in touch</p>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8">
             Let's build something <span className="gradient-text">extraordinary.</span>
           </h2>
-          <p className="text-[var(--fg-muted)] max-w-xl mx-auto mb-16 leading-relaxed">
+          <p className="text-[var(--fg-muted)] max-w-xl mx-auto mb-10 leading-relaxed">
             I'm currently open for new opportunities. Whether you have a question, a project idea, or just want to say hi, I'll try my best to get back to you!
           </p>
         </FadeIn>

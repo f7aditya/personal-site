@@ -3,22 +3,22 @@ import { FadeIn } from "./FadeIn";
 
 const PROJECTS = [
   {
-    title: "Real-Time Healthcare Coordination",
-    description: "A production-grade platform managing hospital bed availability and resource allocation across departments in real-time. Designed to handle high-concurrency updates with zero data loss.",
-    tech: ["Node.js", "Redis Pub/Sub", "React", "MongoDB"],
-    link: "https://github.com/yourusername/project1",
+    title: "HealthPulse — Real-Time Healthcare Coordination",
+    description: "A full-stack healthcare platform for managing hospital resources, including bed availability and blood inventory. Built with secure hospital authentication, resource management APIs, and real-time updates to help coordinate critical healthcare information efficiently.",
+    tech: ["Node.js", "React", "MongoDB", "Redis", "REST APIs"],
+    link: "https://github.com/f7aditya",
   },
   {
-    title: "Collaborative Code Workspace",
-    description: "A room-based environment featuring synchronized code editing, cursor presence, and role-based access control. Built for seamless team collaboration with minimal latency.",
-    tech: ["WebSockets", "React", "Express", "Monaco Editor"],
-    link: "https://github.com/yourusername/project2",
+    title: "DevCollab — Collaborative Code Workspace",
+    description: "A collaborative developer platform that enables teams to work together in shared coding environments. Features real-time code synchronization, room-based collaboration, role-based access control, and seamless communication between team members.",
+    tech: ["WebSockets", "React", "Express.js", "MongoDB", "Node.js"],
+    link: "https://github.com/f7aditya",
   },
   {
-    title: "Distributed Task Queue",
-    description: "A lightweight, fault-tolerant job processing system with delayed execution and automatic retries, built entirely from scratch to understand message broker internals.",
-    tech: ["Go", "Redis", "gRPC", "Docker"],
-    link: "https://github.com/yourusername/project3",
+    title: "Developer Portfolio",
+    description: "A highly interactive, minimalist portfolio featuring seamless dark/light mode toggles, custom design tokens, scroll-driven animations, and responsive layout.",
+    tech: ["React.js", "Tailwind CSS", "Framer Motion", "Vite"],
+    link: "https://github.com/f7aditya",
   },
 ];
 

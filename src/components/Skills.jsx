@@ -43,7 +43,7 @@ export default function Skills() {
             <StaggerItem key={cat.title}>
               <div className="card h-full p-8 flex flex-col hover:-translate-y-1 transition-transform duration-300">
                 <h3 className="text-lg font-bold mb-3">{cat.title}</h3>
-                <p className="text-sm text-[var(--fg-muted)] mb-8 flex-1 leading-relaxed">
+                <p className="text-sm text-[var(--fg-muted)] mb-8 leading-relaxed">
                   {cat.desc}
                 </p>
                 <div className="flex flex-wrap gap-2">
