@@ -1,9 +1,9 @@
 import { FadeIn } from "./FadeIn";
 
 const STATS = [
-  { value: "500+", label: "Algorithms Solved" },
-  { value: "02", label: "Years Experience" },
-  { value: "100%", label: "Client Satisfaction" },
+  { value: "700+", label: "DSA Problems Solved" },
+  { value: "02+", label: "Projects Built" },
+  { value: "01+", label: "Years Coding" },
 ];
 
 export default function About() {

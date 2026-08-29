@@ -2,26 +2,33 @@ import { FadeIn } from "./FadeIn";
 
 const TIMELINE = [
   {
-    type: "Education",
-    date: "2022 – 2026",
-    title: "B.Tech in Computer Science",
-    org: "University Name",
-    desc: "Specialized in distributed systems and advanced data structures. Led the algorithmic coding club.",
+    type: "EDUCATION",
+    date: "2023 – 2027",
+    title: "B.Tech in Computer Science & Engineering",
+    org: "JSS Academy of Technical Education, Noida",
+    desc: "Building a strong foundation in data structures, algorithms, computer science fundamentals, and modern software development.",
   },
   {
-    type: "Experience",
-    date: "Summer 2025",
-    title: "Backend Engineering Intern",
-    org: "Tech Company",
-    desc: "Architected scalable microservices using Node.js and Redis, reducing API response times by 40%.",
+    type: "PROJECT",
+    date: "2025 – Present",
+    title: "HealthPulse (Full-Stack Developer)",
+    org: "Full-Stack Project",
+    desc: "Built a healthcare resource management platform for tracking hospital beds, blood inventory, and resource availability with secure authentication and real-time updates.",
   },
   {
-    type: "Open Source",
-    date: "2024",
-    title: "Core Contributor",
-    org: "Major OSS Project",
-    desc: "Optimized data parsing pipelines and improved TypeScript typings across the core library.",
+    type: "PROJECT",
+    date: "2025 – Present",
+    title: "DevCollab (Full-Stack Developer)",
+    org: "Full-Stack Project",
+    desc: "Developed a collaborative developer platform for project management, team collaboration, role-based access, notifications, and real-time communication.",
   },
+  {
+    type: "COMPETITIVE PROGRAMMING",
+    date: "2024 – Present",
+    title: "Competitive Programmer",
+    org: "LeetCode & Codeforces",
+    desc: "Solved 700+ algorithmic problems, strengthening problem-solving skills across data structures, algorithms, dynamic programming, graphs, and optimization.",
+  }
 ];
 
 export default function Resume() {

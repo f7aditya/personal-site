@@ -2,30 +2,35 @@ import { FadeIn, StaggerParent, StaggerItem } from "./FadeIn";
 
 const CATEGORIES = [
   {
-    title: "Frontend Engineering",
+    title: "Crafting Interfaces",
     desc: "Crafting fluid, responsive, and accessible user interfaces.",
-    skills: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Next.js"],
+    skills: ["HTML", "CSS", "JavaScript", "React.js", "Next.js", "Tailwind CSS", "TypeScript"],
   },
   {
-    title: "Backend Architecture",
+    title: "Building the Backbone",
     desc: "Designing scalable APIs and robust data models.",
-    skills: ["Node.js", "Express", "PostgreSQL", "MongoDB", "Redis"],
+    skills: ["Node.js", "Express.js", "REST APIs", "PostgreSQL", "MongoDB", "Prisma", "Drizzle ORM", "Redis", "JWT", "WebSockets"],
   },
   {
-    title: "Tools & Methodologies",
+    title: "Tools of the Trade",
     desc: "Streamlining workflows and ensuring code quality.",
-    skills: ["Git", "Docker", "CI/CD", "System Design", "Agile"],
+    skills: ["C++", "Git", "GitHub", "Docker", "Postman", "OOP", "DSA", "System Design"],
   },
+  {
+    title: "Exploring the Future",
+    desc: "Experimenting with next-generation AI and language models.",
+    skills: ["AI/ML", "LLM APIs", "Embeddings", "RAG", "AI Agents", "LangChain"],
+  }
 ];
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-24 md:py-32 relative">
+    <section id="skills" className="py-16 md:py-20 relative">
       <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-screen-xl bg-[var(--surface-2)]/30 rounded-3xl -z-10 mx-6 hidden md:block" />
 
       <div className="max-w-6xl mx-auto px-6">
         <FadeIn>
-          <div className="text-center mb-16 md:mb-24">
+          <div className="text-center mb-10 md:mb-14">
             <p className="section-label">Capabilities</p>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
               A refined <span className="gradient-text">toolset.</span>
@@ -33,7 +38,7 @@ export default function Skills() {
           </div>
         </FadeIn>
 
-        <StaggerParent className="grid md:grid-cols-3 gap-8">
+        <StaggerParent className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
           {CATEGORIES.map((cat) => (
             <StaggerItem key={cat.title}>
               <div className="card h-full p-8 flex flex-col hover:-translate-y-1 transition-transform duration-300">
