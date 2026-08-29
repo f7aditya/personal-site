@@ -59,11 +59,12 @@ function useThemeColors() {
 
   return {
     isDark,
-    level0: isDark ? "#1F1F1F" : "#D6E8D6",
-    level1: isDark ? "#4A4A4A" : "#87B98E",
-    level2: isDark ? "#808080" : "#4A8C5C",
-    level3: isDark ? "#C0C0C0" : "#2A6640",
-    level4: isDark ? "#FFFFFF" : "#135222",
+    // Dark mode: pure greyscale with high contrast
+    level0: isDark ? "#222222" : "#EBEDF0", // very distinct empty block
+    level1: isDark ? "#555555" : "#9BE9A8", // 1 sub
+    level2: isDark ? "#888888" : "#40C463", // 2-3 subs
+    level3: isDark ? "#BBBBBB" : "#30A14E", // 4-6 subs
+    level4: isDark ? "#FFFFFF" : "#216E39", // 7+ subs
     text:   isDark ? "#737373" : "#8F897E",
   };
 }

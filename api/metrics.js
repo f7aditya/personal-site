@@ -139,13 +139,10 @@ function buildHeatmap(lcCalendar, cfCalendar) {
     result.push({ date: dateStr, count: merged[unixDay] ?? 0, level: 0 });
   }
 
-  const maxCount = Math.max(...result.map((r) => r.count), 1);
   for (const r of result) {
-    if (r.count === 0) r.level = 0;
-    else if (r.count <= maxCount * 0.25) r.level = 1;
-    else if (r.count <= maxCount * 0.5) r.level = 2;
-    else if (r.count <= maxCount * 0.75) r.level = 3;
-    else r.level = 4;
+    if (r.count === 0) r.level = 0;       // lightest
+    else if (r.count <= 6) r.level = 3;   // dark
+    else r.level = 4;                     // darkest
   }
 
   return result;
