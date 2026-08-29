@@ -1,14 +1,122 @@
+import { useState, useEffect, useRef } from "react";
+import { ActivityCalendar } from "react-activity-calendar";
 import { motion } from "framer-motion";
 import { FadeIn } from "./FadeIn";
+import { HEATMAP_FALLBACK } from "../data/heatmapFallback";
 
-const HEATMAP_DATA = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,1,2,2],[2,2,1,4,3,2,2],[2,1,4,1,4,1,4],[1,3,4,4,4,1,4],[4,2,4,2,2,2,1],[3,2,1,1,2,3,2],[1,1,1,3,1,2,2],[1,1,1,3,1,1,2],[4,1,4,1,1,1,1],[1,2,3,1,1,4,1],[2,1,1,2,3,4,4],[4,1,3,1,1,1,1],[1,1,3,4,4,1,1],[1,1,1,1,4,1,3],[1,2,1,1,1,4,1],[1,4,4,1,2,1,4],[4,4,1,3,4,4,4],[2,4,4,1,2,2,4],[4,0,2,1,1,1,4],[3,1,3,2,2,1,4],[1,1,1,1,1,1,1],[3,4,4,2,2,4,3],[4,4,1,4,1,0,4],[4,2,3,2,1,4,1],[1,1,2,0,3,1,1],[1,1,1,3,1,1,1],[1,1,3,1,1,3,1],[1,1,1,1,1,1,1],[2,1,1,3,2,1,3],[2,2,2,1,4,4,1],[1,2,1,3,1,0,1],[1,1,4,1,3,1,1],[4,4,4,4,4,3,4],[4,1,1,4,3,1,4]];
-const MONTHS = ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"];
+// ─── Fallback static data (shown while loading or on error) ──────────────────
+const FALLBACK = {
+  leetcode: { rating: 1611, topPct: 22.77, easy: 201, medium: 285, hard: 65 },
+  codeforces: { rating: 1610, maxRating: 1660, rank: "expert" },
+  codechef: { rating: 854, stars: 1 },
+  heatmap: HEATMAP_FALLBACK,
+  totalActive: 346,
+};
 
-function cellColor(level) {
-  return `var(--heatmap-${level > 4 ? 4 : level})`;
+// ─── Skeleton shimmer block ───────────────────────────────────────────────────
+function Skeleton({ className = "" }) {
+  return (
+    <div
+      className={`bg-[var(--surface-2)] rounded-lg animate-pulse ${className}`}
+    />
+  );
 }
 
+// ─── Animated progress bar ────────────────────────────────────────────────────
+function Bar({ pct, color }) {
+  return (
+    <div className="h-1.5 bg-[var(--surface-2)] rounded-full overflow-hidden">
+      <motion.div
+        initial={{ width: 0 }}
+        animate={{ width: `${pct}%` }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="h-full rounded-full"
+        style={{ backgroundColor: color }}
+      />
+    </div>
+  );
+}
+
+// ─── Theme-aware colours — reads localStorage to avoid flash on refresh ───────
+function useThemeColors() {
+  const [isDark, setIsDark] = useState(() => {
+    // Read localStorage first (same key the Navbar writes: "theme")
+    // Falls back to checking the class in case it was set another way
+    try {
+      const saved = localStorage.getItem("theme");
+      if (saved) return saved === "dark";
+    } catch {}
+    return document.documentElement.classList.contains("dark");
+  });
+
+  useEffect(() => {
+    const obs = new MutationObserver(() =>
+      setIsDark(document.documentElement.classList.contains("dark"))
+    );
+    obs.observe(document.documentElement, { attributeFilter: ["class"] });
+    return () => obs.disconnect();
+  }, []);
+
+  return {
+    isDark,
+    level0: isDark ? "#1F1F1F" : "#D6E8D6",
+    level1: isDark ? "#4A4A4A" : "#87B98E",
+    level2: isDark ? "#808080" : "#4A8C5C",
+    level3: isDark ? "#C0C0C0" : "#2A6640",
+    level4: isDark ? "#FFFFFF" : "#135222",
+    text:   isDark ? "#737373" : "#8F897E",
+  };
+}
+
+// ─── Main component ───────────────────────────────────────────────────────────
 export default function Stats() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const hasFetched = useRef(false);
+  const colors = useThemeColors();
+
+  useEffect(() => {
+    if (hasFetched.current) return;
+    hasFetched.current = true;
+
+    fetch("/api/metrics")
+      .then((r) => {
+        if (!r.ok) throw new Error("API error");
+        return r.json();
+      })
+      .then((json) => {
+        setData(json);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError(true);
+        setLoading(false);
+      });
+  }, []);
+
+  const d = data ?? FALLBACK;
+  const lc = d.leetcode;
+  const cf = d.codeforces;
+  const cc = d.codechef;
+  const totalSolved = (lc.easy ?? 0) + (lc.medium ?? 0) + (lc.hard ?? 0);
+  const dist = [
+    { label: "Easy", count: lc.easy, color: "#34d399" },
+    { label: "Medium", count: lc.medium, color: "#fbbf24" },
+    { label: "Hard", count: lc.hard, color: "#f87171" },
+  ].map((item) => ({ ...item, pct: totalSolved ? (item.count / totalSolved) * 100 : 0 }));
+
+  const { isDark } = colors;
+
+  // react-activity-calendar theme — same scale for both keys, colorScheme selects which to use
+  const calTheme = {
+    light: [colors.level0, colors.level1, colors.level2, colors.level3, colors.level4],
+    dark:  [colors.level0, colors.level1, colors.level2, colors.level3, colors.level4],
+  };
+
+  // Stars string
+  const starStr = cc.stars ? "★".repeat(cc.stars) + "☆".repeat(Math.max(0, 7 - cc.stars)) : "1★";
+
   return (
     <section id="stats" className="py-24 md:py-32">
       <div className="max-w-6xl mx-auto px-6">
@@ -20,94 +128,119 @@ export default function Stats() {
         </FadeIn>
 
         <div className="grid lg:grid-cols-12 gap-8">
-          {/* Main metrics */}
+          {/* ── Left column ─────────────────────────────────────────── */}
           <div className="lg:col-span-4 flex flex-col gap-8">
+
+            {/* LeetCode Rating card */}
             <FadeIn delay={0.1}>
-              <a 
-                href="https://leetcode.com/u/f7_adityaa/" 
-                target="_blank" 
+              <a
+                href="https://leetcode.com/u/f7_adityaa/"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="card p-8 flex-1 flex flex-col justify-center block hover:-translate-y-1 transition-transform"
+                className="card p-8 flex flex-col justify-center block hover:-translate-y-1 transition-transform"
               >
                 <p className="text-[var(--fg-muted)] text-sm mb-2">LeetCode Rating</p>
-                <p className="text-5xl font-bold text-[var(--accent)] mb-4">1,611</p>
+                {loading ? (
+                  <Skeleton className="h-12 w-32 mb-4" />
+                ) : (
+                  <p className="text-5xl font-bold text-[var(--accent)] mb-4">
+                    {lc.rating ? lc.rating.toLocaleString() : "—"}
+                  </p>
+                )}
                 <div className="flex justify-between text-xs font-mono text-[var(--fg-dim)] border-t border-[var(--border)] pt-4">
-                  <span>Top 22% Global</span>
-                  <span>Max: 1,611</span>
+                  {loading ? (
+                    <>
+                      <Skeleton className="h-3 w-20" />
+                      <Skeleton className="h-3 w-16" />
+                    </>
+                  ) : (
+                    <>
+                      <span>
+                        {lc.topPct != null ? `Top ${lc.topPct.toFixed(0)}% Global` : "Contest Rated"}
+                      </span>
+                      <span>Max: {lc.rating?.toLocaleString()}</span>
+                    </>
+                  )}
                 </div>
               </a>
             </FadeIn>
 
-            <FadeIn delay={0.2} className="card p-8 flex-1 flex flex-col justify-center">
+            {/* Problem Distribution card */}
+            <FadeIn delay={0.2} className="card p-8 flex flex-col justify-center">
               <p className="text-[var(--fg-muted)] text-sm mb-4">Problem Distribution</p>
-              <div className="space-y-4">
-                {[
-                  { label: "Easy", count: 201, pct: "36%", color: "#34d399" },
-                  { label: "Medium", count: 285, pct: "52%", color: "#fbbf24" },
-                  { label: "Hard", count: 65, pct: "12%", color: "#f87171" },
-                ].map((d) => (
-                  <div key={d.label}>
-                    <div className="flex justify-between text-xs mb-1.5">
-                      <span className="text-[var(--fg-muted)]">{d.label}</span>
-                      <span className="font-mono">{d.count}</span>
+              {loading ? (
+                <div className="space-y-4">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i}>
+                      <Skeleton className="h-3 w-full mb-1.5" />
+                      <Skeleton className="h-1.5 w-full" />
                     </div>
-                    <div className="h-1.5 bg-[var(--surface-2)] rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: d.pct }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, ease: "easeOut" }}
-                        className="h-full rounded-full"
-                        style={{ backgroundColor: d.color }}
-                      />
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {dist.map((item) => (
+                    <div key={item.label}>
+                      <div className="flex justify-between text-xs mb-1.5">
+                        <span className="text-[var(--fg-muted)]">{item.label}</span>
+                        <span className="font-mono">{item.count}</span>
+                      </div>
+                      <Bar pct={item.pct} color={item.color} />
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </FadeIn>
           </div>
 
-          {/* Heatmap & Platforms */}
+          {/* ── Right column ─────────────────────────────────────────── */}
           <div className="lg:col-span-8 flex flex-col gap-8">
-            <FadeIn delay={0.3} className="card p-8 flex-1 overflow-x-auto">
-              <div className="flex justify-between items-end mb-8 min-w-[600px]">
+
+            {/* Activity Map card */}
+            <FadeIn delay={0.3} className="card p-8 flex-1 overflow-hidden">
+              <div className="flex justify-between items-end mb-6">
                 <div>
                   <h3 className="font-bold text-lg mb-1">Activity Map</h3>
-                  <p className="text-sm text-[var(--fg-muted)]">550+ problems solved in the last year</p>
-                </div>
-                <div className="flex items-center gap-1.5 text-xs text-[var(--fg-dim)]">
-                  <span>Less</span>
-                  {[0, 1, 2, 3, 4].map((n) => (
-                    <div key={n} className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: cellColor(n) }} />
-                  ))}
-                  <span>More</span>
+                  {loading ? (
+                    <Skeleton className="h-3 w-48" />
+                  ) : (
+                    <p className="text-sm text-[var(--fg-muted)]">
+                      {d.totalActive}+ active days in the last year
+                      {error && " (offline data)"}
+                    </p>
+                  )}
                 </div>
               </div>
 
-              <div className="min-w-[600px]">
-                <div className="flex mb-2 ml-6 text-xs text-[var(--fg-dim)]">
-                  {MONTHS.map((m) => (
-                    <div key={m} className="flex-1 text-center">{m}</div>
-                  ))}
+              {loading ? (
+                <Skeleton className="h-28 w-full" />
+              ) : d.heatmap && d.heatmap.length > 0 ? (
+                <div className="overflow-x-auto">
+                  <ActivityCalendar
+                    data={d.heatmap}
+                    theme={calTheme}
+                    colorScheme={isDark ? "dark" : "light"}
+                    blockSize={11}
+                    blockMargin={3}
+                    blockRadius={2}
+                    fontSize={11}
+                    labels={{
+                      legend: { less: "Less", more: "More" },
+                      months: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+                      weekdays: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+                      totalCount: "{{count}} activities in {{year}}",
+                    }}
+                    style={{ color: colors.text }}
+                  />
                 </div>
-                <div className="flex gap-1">
-                  {HEATMAP_DATA.map((week, wi) => (
-                    <div key={wi} className="flex flex-col gap-1 flex-1">
-                      {week.map((val, di) => (
-                        <div
-                          key={di}
-                          className="w-full aspect-square rounded-sm"
-                          style={{ backgroundColor: cellColor(val) }}
-                        />
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              </div>
+              ) : (
+                <p className="text-sm text-[var(--fg-dim)]">No activity data available.</p>
+              )}
             </FadeIn>
 
+            {/* Platform cards */}
             <FadeIn delay={0.4} className="grid grid-cols-2 gap-8">
-              <a 
+              <a
                 href="https://codeforces.com/profile/f7_adityaa"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -115,12 +248,18 @@ export default function Stats() {
               >
                 <div>
                   <p className="font-bold">Codeforces</p>
-                  <p className="text-sm text-[var(--fg-muted)]">Expert · 1610</p>
+                  {loading ? (
+                    <Skeleton className="h-3 w-24 mt-1" />
+                  ) : (
+                    <p className="text-sm text-[var(--fg-muted)] capitalize">
+                      {cf.rank} · {cf.rating}
+                    </p>
+                  )}
                 </div>
                 <span className="text-[var(--border-focus)] group-hover:text-[var(--accent)] transition-colors">↗</span>
               </a>
-              
-              <a 
+
+              <a
                 href="https://www.codechef.com/users/f7_aditya"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -128,7 +267,13 @@ export default function Stats() {
               >
                 <div>
                   <p className="font-bold">CodeChef</p>
-                  <p className="text-sm text-[var(--fg-muted)]">1★ · 854</p>
+                  {loading ? (
+                    <Skeleton className="h-3 w-20 mt-1" />
+                  ) : (
+                    <p className="text-sm text-[var(--fg-muted)]">
+                      {cc.stars}★ · {cc.rating}
+                    </p>
+                  )}
                 </div>
                 <span className="text-[var(--border-focus)] group-hover:text-[var(--accent)] transition-colors">↗</span>
               </a>
