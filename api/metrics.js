@@ -127,14 +127,16 @@ function buildHeatmap(lcCalendar, cfCalendar) {
   }
 
   const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const startDate = new Date(today);
-  startDate.setFullYear(startDate.getFullYear() - 1);
-  startDate.setDate(startDate.getDate() + 1);
+  // Use UTC to prevent timezone shifts when calling toISOString()
+  const utcToday = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
+  
+  const startDate = new Date(utcToday);
+  startDate.setUTCFullYear(startDate.getUTCFullYear() - 1);
+  startDate.setUTCDate(startDate.getUTCDate() + 1);
 
   const result = [];
-  for (let d = new Date(startDate); d <= today; d.setDate(d.getDate() + 1)) {
-    const unixDay = Math.floor(d.getTime() / 1000 / 86400) * 86400;
+  for (let d = new Date(startDate); d <= utcToday; d.setUTCDate(d.getUTCDate() + 1)) {
+    const unixDay = Math.floor(d.getTime() / 1000); // Already at UTC midnight
     const dateStr = d.toISOString().split("T")[0];
     result.push({ date: dateStr, count: merged[unixDay] ?? 0, level: 0 });
   }
