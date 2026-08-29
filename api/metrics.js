@@ -143,6 +143,7 @@ function buildHeatmap(lcCalendar, cfCalendar) {
 
   for (const r of result) {
     if (r.count === 0) r.level = 0;       // lightest
+    else if (r.count <= 2) r.level = 2;   // medium
     else if (r.count <= 6) r.level = 3;   // dark
     else r.level = 4;                     // darkest
   }
