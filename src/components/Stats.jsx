@@ -115,12 +115,24 @@ export default function Stats() {
     dark:  [colors.level0, colors.level1, colors.level2, colors.level3, colors.level4],
   };
 
+  // Group heatmap data by month to render separate calendars
+  const monthsData = [];
+  if (d.heatmap && d.heatmap.length > 0) {
+    const groups = {};
+    d.heatmap.forEach(day => {
+      const month = day.date.substring(0, 7); // "YYYY-MM"
+      if (!groups[month]) groups[month] = [];
+      groups[month].push(day);
+    });
+    Object.keys(groups).sort().forEach(k => monthsData.push(groups[k]));
+  }
+
   // Stars string
   const starStr = cc.stars ? "★".repeat(cc.stars) + "☆".repeat(Math.max(0, 7 - cc.stars)) : "1★";
 
   return (
-    <section id="stats" className="py-16 md:py-24 lg:py-32">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="stats" className="min-h-[calc(100vh-68px)] flex flex-col py-8 relative">
+      <div className="max-w-6xl mx-auto px-6 w-full my-auto">
         <FadeIn className="mb-16">
           <p className="section-label">Metrics</p>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
@@ -216,23 +228,38 @@ export default function Stats() {
               {loading ? (
                 <Skeleton className="h-28 w-full" />
               ) : d.heatmap && d.heatmap.length > 0 ? (
-                <div className="overflow-x-auto pb-2">
-                  <ActivityCalendar
-                    data={d.heatmap}
-                    theme={calTheme}
-                    colorScheme={isDark ? "dark" : "light"}
-                    blockSize={11}
-                    blockMargin={3}
-                    blockRadius={2}
-                    fontSize={11}
-                    labels={{
-                      legend: { less: "Less", more: "More" },
-                      months: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
-                      weekdays: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
-                      totalCount: "{{count}} activities in {{year}}",
-                    }}
-                    style={{ color: colors.text }}
-                  />
+                <div className="overflow-x-auto pb-4 custom-scrollbar">
+                  <div className="flex gap-2 sm:gap-3 min-w-max">
+                    {monthsData.map((monthData, i) => {
+                      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                      const dateParts = monthData[0].date.split("-");
+                      const mIdx = parseInt(dateParts[1], 10) - 1;
+                      const mName = monthNames[mIdx];
+                      
+                      return (
+                        <div key={i} className="flex flex-col gap-2">
+                          <span className="text-[10px] text-[var(--fg-muted)] pl-1">{mName}</span>
+                          <ActivityCalendar
+                            data={monthData}
+                            theme={calTheme}
+                            colorScheme={isDark ? "dark" : "light"}
+                            blockSize={9}
+                            blockMargin={2}
+                            blockRadius={2}
+                            fontSize={10}
+                            showColorLegend={false}
+                            showTotalCount={false}
+                            showWeekdayLabels={i === 0}
+                            showMonthLabels={false}
+                            labels={{
+                              weekdays: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+                            }}
+                            style={{ color: colors.text }}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ) : (
                 <p className="text-sm text-[var(--fg-dim)]">No activity data available.</p>

@@ -43,7 +43,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-16 md:py-20">
+    <section id="contact" className="min-h-[calc(100vh-68px)] flex flex-col py-8 relative">
       <div className="max-w-4xl mx-auto px-6 text-center">
         <FadeIn>
           <p className="section-label">Get in touch</p>

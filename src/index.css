@@ -77,6 +77,11 @@
     overflow-x: hidden;
   }
 
+  /* Offset for fixed navbar when clicking nav links */
+  section[id] {
+    scroll-margin-top: 68px;
+  }
+
   ::selection {
     background: var(--accent);
     color: var(--selection-fg);

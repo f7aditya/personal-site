@@ -24,8 +24,8 @@ const PROJECTS = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-16 md:py-24 lg:py-32">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="projects" className="min-h-[calc(100vh-68px)] flex flex-col py-8 relative">
+      <div className="max-w-6xl mx-auto px-6 w-full my-auto">
         <FadeIn className="mb-10 md:mb-16">
           <p className="section-label">Selected Work</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight max-w-2xl">

@@ -33,10 +33,10 @@ const TIMELINE = [
 
 export default function Resume() {
   return (
-    <section id="resume" className="py-16 md:py-24 lg:py-32 relative">
+    <section id="resume" className="min-h-[calc(100vh-68px)] flex flex-col py-8 relative">
       <div className="absolute inset-y-0 right-0 w-full md:w-1/2 bg-gradient-to-l from-[var(--surface-2)]/40 to-transparent -z-10" />
 
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6 w-full my-auto">
         <div className="grid md:grid-cols-12 gap-16">
           <div className="md:col-span-5">
             <div className="sticky top-32">

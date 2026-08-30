@@ -8,8 +8,8 @@ const STATS = [
 
 export default function About() {
   return (
-    <section id="about" className="py-16 md:py-24 lg:py-32">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="about" className="min-h-[calc(100vh-68px)] flex flex-col py-8 relative">
+      <div className="max-w-6xl mx-auto px-6 w-full my-auto">
         <FadeIn>
           <p className="section-label">About Me</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-12 md:mb-16 max-w-2xl">
