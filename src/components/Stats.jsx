@@ -119,7 +119,7 @@ export default function Stats() {
   const starStr = cc.stars ? "★".repeat(cc.stars) + "☆".repeat(Math.max(0, 7 - cc.stars)) : "1★";
 
   return (
-    <section id="stats" className="py-24 md:py-32">
+    <section id="stats" className="py-16 md:py-24 lg:py-32">
       <div className="max-w-6xl mx-auto px-6">
         <FadeIn className="mb-16">
           <p className="section-label">Metrics</p>
@@ -130,7 +130,7 @@ export default function Stats() {
 
         <div className="grid lg:grid-cols-12 gap-8">
           {/* ── Left column ─────────────────────────────────────────── */}
-          <div className="lg:col-span-4 flex flex-col gap-8">
+          <div className="lg:col-span-4 flex flex-col gap-8 min-w-0">
 
             {/* LeetCode Rating card */}
             <FadeIn delay={0.1}>
@@ -138,7 +138,7 @@ export default function Stats() {
                 href="https://leetcode.com/u/f7_adityaa/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="card p-8 flex flex-col justify-center block hover:-translate-y-1 transition-transform"
+                className="card p-8 flex flex-col justify-center block hover:-translate-y-1 transition-transform overflow-hidden"
               >
                 <p className="text-[var(--fg-muted)] text-sm mb-2">LeetCode Rating</p>
                 {loading ? (
@@ -167,7 +167,7 @@ export default function Stats() {
             </FadeIn>
 
             {/* Problem Distribution card */}
-            <FadeIn delay={0.2} className="card p-8 flex flex-col justify-center">
+            <FadeIn delay={0.2} className="card p-8 flex flex-col justify-center overflow-hidden">
               <p className="text-[var(--fg-muted)] text-sm mb-4">Problem Distribution</p>
               {loading ? (
                 <div className="space-y-4">
@@ -195,11 +195,11 @@ export default function Stats() {
           </div>
 
           {/* ── Right column ─────────────────────────────────────────── */}
-          <div className="lg:col-span-8 flex flex-col gap-8">
+          <div className="lg:col-span-8 flex flex-col gap-8 min-w-0">
 
             {/* Activity Map card */}
-            <FadeIn delay={0.3} className="card p-8 flex-1 overflow-hidden">
-              <div className="flex justify-between items-end mb-6">
+            <FadeIn delay={0.3} className="card p-5 sm:p-8 flex-1 overflow-hidden min-w-0">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 mb-6">
                 <div>
                   <h3 className="font-bold text-lg mb-1">Activity Map</h3>
                   {loading ? (
@@ -216,7 +216,7 @@ export default function Stats() {
               {loading ? (
                 <Skeleton className="h-28 w-full" />
               ) : d.heatmap && d.heatmap.length > 0 ? (
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto pb-2">
                   <ActivityCalendar
                     data={d.heatmap}
                     theme={calTheme}
@@ -240,7 +240,7 @@ export default function Stats() {
             </FadeIn>
 
             {/* Platform cards */}
-            <FadeIn delay={0.4} className="grid grid-cols-2 gap-8">
+            <FadeIn delay={0.4} className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
               <a
                 href="https://codeforces.com/profile/f7_adityaa"
                 target="_blank"

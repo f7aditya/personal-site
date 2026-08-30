@@ -25,20 +25,20 @@ const CATEGORIES = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-16 md:py-20 relative">
+    <section id="skills" className="py-16 md:py-24 lg:py-32 relative">
       <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-screen-xl bg-[var(--surface-2)]/30 rounded-3xl -z-10 mx-6 hidden md:block" />
 
       <div className="max-w-6xl mx-auto px-6">
         <FadeIn>
           <div className="text-center mb-10 md:mb-14">
             <p className="section-label">Capabilities</p>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
               A refined <span className="gradient-text">toolset.</span>
             </h2>
           </div>
         </FadeIn>
 
-        <StaggerParent className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <StaggerParent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
           {CATEGORIES.map((cat) => (
             <StaggerItem key={cat.title}>
               <div className="card h-full p-8 flex flex-col hover:-translate-y-1 transition-transform duration-300">

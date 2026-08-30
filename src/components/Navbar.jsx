@@ -145,8 +145,8 @@ export default function Navbar() {
                   animate={
                     open
                       ? i === 1
-                        ? { opacity: 0 }
-                        : { rotate: i === 0 ? 45 : -45, y: i === 0 ? 8 : -8 }
+                        ? { opacity: 0, scale: 0 }
+                        : { rotate: i === 0 ? 45 : -45, y: i === 0 ? 7 : -7 }
                       : { rotate: 0, y: 0, opacity: 1 }
                   }
                   className="block h-px rounded-full origin-center"
@@ -179,7 +179,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.06 }}
                 onClick={() => { setOpen(false); go(link.href); }}
-                className="text-3xl font-bold py-3 transition-colors duration-150"
+                className="text-2xl font-bold py-2.5 transition-colors duration-150"
                 style={{ color: active === link.href.slice(1) ? "var(--accent)" : "var(--fg-muted)" }}
               >
                 {link.label}

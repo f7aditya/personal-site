@@ -25,25 +25,25 @@ export default function Hero() {
       {/* Interactive mouse glow */}
       <motion.div className="absolute inset-0 z-0 pointer-events-none hidden md:block" style={{ background: bg }} />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 md:gap-12 lg:gap-20 items-center">
         
         {/* Text Content */}
         <div className="text-left order-2 md:order-1">
           <FadeIn delay={0.1}>
-            <div className="badge mb-8">
+            <div className="badge mb-6 md:mb-8">
               <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
               Available for hire
             </div>
           </FadeIn>
 
           <FadeIn delay={0.2}>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-5 md:mb-6">
               Building systems that <span className="gradient-text italic">scale, perform &amp; matter.</span>
             </h1>
           </FadeIn>
 
           <FadeIn delay={0.3}>
-            <p className="text-lg md:text-xl text-[var(--fg-muted)] mb-10 leading-relaxed font-light">
+            <p className="text-base sm:text-lg md:text-xl text-[var(--fg-muted)] mb-8 md:mb-10 leading-relaxed font-light">
               Full-stack engineer and competitive programmer building high-performance web applications, scalable backends, and AI-powered products.
             </p>
           </FadeIn>

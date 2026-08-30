@@ -8,16 +8,16 @@ const STATS = [
 
 export default function About() {
   return (
-    <section id="about" className="py-24 md:py-32">
+    <section id="about" className="py-16 md:py-24 lg:py-32">
       <div className="max-w-6xl mx-auto px-6">
         <FadeIn>
           <p className="section-label">About Me</p>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-16 max-w-2xl">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-12 md:mb-16 max-w-2xl">
             Engineering with <span className="gradient-text">intent.</span>
           </h2>
         </FadeIn>
 
-        <div className="grid md:grid-cols-12 gap-12 lg:gap-20 items-start">
+        <div className="grid md:grid-cols-12 gap-10 md:gap-12 lg:gap-20 items-start">
           <div className="md:col-span-7 space-y-6 text-[var(--fg-muted)] leading-relaxed">
             <FadeIn delay={0.1}>
               <p>
@@ -36,7 +36,7 @@ export default function About() {
             </FadeIn>
           </div>
 
-          <div className="md:col-span-5 grid grid-cols-2 md:grid-cols-1 gap-6">
+          <div className="md:col-span-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4 sm:gap-6 mt-8 md:mt-0">
             {STATS.map((stat, i) => (
               <FadeIn key={stat.label} delay={0.2 + i * 0.1}>
                 <div className="card p-6 text-center md:text-left">

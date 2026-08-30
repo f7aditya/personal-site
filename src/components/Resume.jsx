@@ -33,7 +33,7 @@ const TIMELINE = [
 
 export default function Resume() {
   return (
-    <section id="resume" className="py-24 md:py-32 relative">
+    <section id="resume" className="py-16 md:py-24 lg:py-32 relative">
       <div className="absolute inset-y-0 right-0 w-full md:w-1/2 bg-gradient-to-l from-[var(--surface-2)]/40 to-transparent -z-10" />
 
       <div className="max-w-6xl mx-auto px-6">
@@ -60,8 +60,8 @@ export default function Resume() {
               <FadeIn key={i} delay={i * 0.15}>
                 <div className="group relative pl-8 md:pl-10">
                   {/* Timeline line & dot */}
-                  <div className="absolute left-0 top-2 bottom-[-3rem] w-px bg-[var(--border)] group-last:bottom-0" />
-                  <div className="absolute left-[-4px] top-2.5 w-2 h-2 rounded-full bg-[var(--accent)] shadow-[0_0_10px_var(--accent)]" />
+                  <div className="absolute left-[3px] top-2 bottom-[-3rem] w-[2px] bg-[var(--border)] group-last:bottom-0" />
+                  <div className="absolute left-0 top-2.5 w-2 h-2 rounded-full bg-[var(--accent)] shadow-[0_0_10px_var(--accent)]" />
 
                   <div className="flex flex-wrap items-center gap-3 mb-2">
                     <span className="badge">{item.type}</span>
