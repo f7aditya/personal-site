@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Download } from "lucide-react";
 
 const NAV = [
   { label: "Home",    href: "#home"     },
@@ -106,6 +106,16 @@ export default function Navbar() {
 
           {/* Actions */}
           <div className="hidden md:flex items-center gap-4">
+            <a
+              href="/resume.pdf"
+              download
+              className="flex items-center gap-2 px-2 py-1 rounded transition-colors duration-150 hover:bg-[var(--surface-2)]"
+              style={{ color: "var(--fg-muted)" }}
+              title="Download Resume"
+            >
+              <span className="text-sm font-medium">Resume</span>
+              <Download size={16} />
+            </a>
             <button
               onClick={toggleTheme}
               className="p-2 rounded-full transition-colors duration-150 hover:bg-[var(--surface-2)]"
@@ -126,6 +136,16 @@ export default function Navbar() {
 
           {/* Hamburger & Mobile Theme Toggle */}
           <div className="md:hidden flex items-center gap-4">
+            <a
+              href="/resume.pdf"
+              download
+              className="p-2 rounded-full transition-colors duration-150"
+              style={{ color: "var(--fg-muted)" }}
+              aria-label="Download Resume"
+              title="Download Resume"
+            >
+              <Download size={18} />
+            </a>
             <button
               onClick={toggleTheme}
               className="p-2 rounded-full transition-colors duration-150"
