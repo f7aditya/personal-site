@@ -49,7 +49,7 @@ export default function Resume() {
                   A timeline of my academic background and professional experience building software.
                 </p>
                 <a 
-                  href="https://drive.google.com/file/d/184o8ZLqKxzRmohPtZISiyiuHFUaNPh4l/view?usp=sharing" 
+                  href="/resume.pdf" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="btn-ghost"
