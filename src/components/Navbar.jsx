@@ -8,7 +8,7 @@ const NAV = [
   { label: "Skills",  href: "#skills"   },
   { label: "Work",    href: "#projects" },
   { label: "Stats",   href: "#stats"    },
-  { label: "Resume",  href: "/resume.pdf", external: true },
+  { label: "Resume",  href: "#resume"   },
   { label: "Contact", href: "#contact"  },
 ];
 
@@ -81,22 +81,6 @@ export default function Navbar() {
           {/* Desktop links */}
           <nav className="hidden md:flex items-center gap-1">
             {NAV.map((link) => {
-              if (link.external) {
-                return (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-150"
-                    style={{ color: "var(--fg-muted)" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--fg)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "var(--fg-muted)")}
-                  >
-                    {link.label}
-                  </a>
-                );
-              }
               const isActive = active === link.href.slice(1);
               return (
                 <button
@@ -188,39 +172,19 @@ export default function Navbar() {
             className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-2"
             style={{ background: "var(--bg)", backdropFilter: "blur(24px)", opacity: 0.98 }}
           >
-            {NAV.map((link, i) => {
-              if (link.external) {
-                return (
-                  <motion.a
-                    key={link.href}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.06 }}
-                    onClick={() => setOpen(false)}
-                    className="text-2xl font-bold py-2.5 transition-colors duration-150"
-                    style={{ color: "var(--fg-muted)" }}
-                  >
-                    {link.label}
-                  </motion.a>
-                );
-              }
-              return (
-                <motion.button
-                  key={link.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.06 }}
-                  onClick={() => { setOpen(false); go(link.href); }}
-                  className="text-2xl font-bold py-2.5 transition-colors duration-150"
-                  style={{ color: active === link.href.slice(1) ? "var(--accent)" : "var(--fg-muted)" }}
-                >
-                  {link.label}
-                </motion.button>
-              );
-            })}
+            {NAV.map((link, i) => (
+              <motion.button
+                key={link.href}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.06 }}
+                onClick={() => { setOpen(false); go(link.href); }}
+                className="text-2xl font-bold py-2.5 transition-colors duration-150"
+                style={{ color: active === link.href.slice(1) ? "var(--accent)" : "var(--fg-muted)" }}
+              >
+                {link.label}
+              </motion.button>
+            ))}
             <motion.button
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
