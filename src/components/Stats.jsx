@@ -75,6 +75,7 @@ export default function Stats() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const hasFetched = useRef(false);
+  const scrollContainerRef = useRef(null);
   const colors = useThemeColors();
 
   useEffect(() => {
@@ -95,6 +96,18 @@ export default function Stats() {
         setLoading(false);
       });
   }, []);
+
+  // Auto-scroll the heatmap to the right to show latest data
+  useEffect(() => {
+    if (!loading && scrollContainerRef.current) {
+      // Small timeout to ensure DOM layout is complete before scrolling
+      setTimeout(() => {
+        if (scrollContainerRef.current) {
+          scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth;
+        }
+      }, 50);
+    }
+  }, [loading]);
 
   const d = data ?? FALLBACK;
   const lc = d.leetcode;
@@ -228,7 +241,7 @@ export default function Stats() {
               {loading ? (
                 <Skeleton className="h-28 w-full" />
               ) : d.heatmap && d.heatmap.length > 0 ? (
-                <div className="overflow-x-auto pb-4 custom-scrollbar">
+                <div ref={scrollContainerRef} className="overflow-x-auto pb-4 custom-scrollbar">
                   <div className="flex gap-2 sm:gap-3 min-w-max">
                     {monthsData.map((monthData, i) => {
                       const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
