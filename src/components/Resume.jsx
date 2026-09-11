@@ -48,8 +48,13 @@ export default function Resume() {
                 <p className="text-[var(--fg-muted)] leading-relaxed mb-10">
                   A timeline of my academic background and professional experience building software.
                 </p>
-                <a href="/resume.pdf" download className="btn-ghost">
-                  Download Full Resume
+                <a 
+                  href="https://drive.google.com/file/d/184o8ZLqKxzRmohPtZISiyiuHFUaNPh4l/view?usp=sharing" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="btn-ghost"
+                >
+                  View Full Resume
                 </a>
               </FadeIn>
             </div>
