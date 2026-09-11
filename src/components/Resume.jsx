@@ -50,11 +50,10 @@ export default function Resume() {
                 </p>
                 <a 
                   href="/resume.pdf" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                  download
                   className="btn-ghost"
                 >
-                  View Full Resume
+                  Download Full Resume
                 </a>
               </FadeIn>
             </div>
