@@ -109,8 +109,10 @@ export default function Navbar() {
             <a
               href="/resume.pdf"
               download
-              className="flex items-center gap-2 px-2 py-1 rounded transition-colors duration-150 hover:bg-[var(--surface-2)]"
+              className="flex items-center gap-2 px-2 py-2 transition-colors duration-150"
               style={{ color: "var(--fg-muted)" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--fg)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--fg-muted)")}
               title="Download Resume"
             >
               <span className="text-sm font-medium">Resume</span>
