@@ -2,6 +2,27 @@ import { FadeIn } from "./FadeIn";
 
 const TIMELINE = [
   {
+    type: "PROJECT",
+    date: "Jul 2026 – Present",
+    title: "ApplySync (Full-Stack Developer)",
+    org: "AI-Powered Job Search Platform",
+    desc: "Designed a multi-tenant platform with PostgreSQL Row-Level Security, streaming real-time AI gap analysis via SSE, BullMQ, and Redis workers.",
+  },
+  {
+    type: "PROJECT",
+    date: "May 2026 – Present",
+    title: "DevCollab (Full-Stack Developer)",
+    org: "Collaborative Engineering Workspace",
+    desc: "Built a collaborative workspace unifying task management and secure file sharing with a RESTful Node.js API and real-time Socket.io synchronization.",
+  },
+  {
+    type: "PROJECT",
+    date: "Apr 2026 – Present",
+    title: "HealthPulse (Full-Stack Developer)",
+    org: "Real-Time Healthcare Coordination",
+    desc: "Engineered a centralized platform for tracking hospital resources and patient dispatching, utilizing Redis caching and Socket.io for low-latency live updates.",
+  },
+  {
     type: "EDUCATION",
     date: "2023 – 2027",
     title: "B.Tech in Computer Science & Engineering",
@@ -9,25 +30,11 @@ const TIMELINE = [
     desc: "Building a strong foundation in data structures, algorithms, computer science fundamentals, and modern software development.",
   },
   {
-    type: "PROJECT",
-    date: "2025 – Present",
-    title: "HealthPulse (Full-Stack Developer)",
-    org: "Full-Stack Project",
-    desc: "Built a healthcare resource management platform for tracking hospital beds, blood inventory, and resource availability with secure authentication and real-time updates.",
-  },
-  {
-    type: "PROJECT",
-    date: "2025 – Present",
-    title: "DevCollab (Full-Stack Developer)",
-    org: "Full-Stack Project",
-    desc: "Developed a collaborative developer platform for project management, team collaboration, role-based access, notifications, and real-time communication.",
-  },
-  {
     type: "COMPETITIVE PROGRAMMING",
     date: "2024 – Present",
     title: "Competitive Programmer",
     org: "LeetCode & Codeforces",
-    desc: "Solved 700+ algorithmic problems, strengthening problem-solving skills across data structures, algorithms, dynamic programming, graphs, and optimization.",
+    desc: "Solved 600+ algorithmic problems. Codeforces Expert (1660 peak) and LeetCode rating 1684. Ranked 149th out of 15,000+ in CF Round 1105 (Div. 2).",
   }
 ];
 

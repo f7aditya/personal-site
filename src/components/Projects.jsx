@@ -3,15 +3,21 @@ import { FadeIn } from "./FadeIn";
 
 const PROJECTS = [
   {
-    title: "HealthPulse — Real-Time Healthcare Coordination",
-    description: "A full-stack healthcare platform for managing hospital resources, including bed availability and blood inventory. Built with secure hospital authentication, resource management APIs, and real-time updates to help coordinate critical healthcare information efficiently.",
-    tech: ["Node.js", "React", "MongoDB", "Redis", "REST APIs"],
+    title: "ApplySync — AI-Powered Job Search Platform",
+    description: "A multi-tenant job-search platform featuring semantic gap analysis between resumes and job descriptions. Leverages PostgreSQL with pgvector for nearest-neighbor search, and streams real-time AI insights via Server-Sent Events (SSE) backed by BullMQ and Redis workers.",
+    tech: ["React", "Node.js", "PostgreSQL", "pgvector", "Redis"],
     link: "https://github.com/f7aditya",
   },
   {
     title: "DevCollab — Collaborative Code Workspace",
-    description: "A collaborative developer platform that enables teams to work together in shared coding environments. Features real-time code synchronization, room-based collaboration, role-based access control, and seamless communication between team members.",
-    tech: ["WebSockets", "React", "Express.js", "MongoDB", "Node.js"],
+    description: "A full-stack engineering workspace unifying task management and secure file sharing. Features a RESTful Node.js API with optimized database indexing and real-time synchronization via Socket.io for low-latency collaboration across multiple user roles.",
+    tech: ["Next.js", "TypeScript", "Node.js", "MongoDB", "Socket.io"],
+    link: "https://github.com/f7aditya",
+  },
+  {
+    title: "HealthPulse — Real-Time Healthcare Coordination",
+    description: "A centralized healthcare coordination platform enabling low-latency updates for hospital telemetry and patient dispatching. Features a live synchronization network using Socket.io and Redis caching to cut API response latency by 75% for concurrent clients.",
+    tech: ["Next.js", "Express", "MongoDB", "Redis", "Socket.io"],
     link: "https://github.com/f7aditya",
   },
   {
@@ -19,7 +25,7 @@ const PROJECTS = [
     description: "A highly interactive, minimalist portfolio featuring seamless dark/light mode toggles, custom design tokens, scroll-driven animations, and responsive layout.",
     tech: ["React.js", "Tailwind CSS", "Framer Motion", "Vite"],
     link: "https://github.com/f7aditya",
-  },
+  }
 ];
 
 export default function Projects() {
