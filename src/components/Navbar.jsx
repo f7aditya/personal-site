@@ -107,7 +107,7 @@ export default function Navbar() {
           {/* Actions */}
           <div className="hidden md:flex items-center gap-4">
             <a
-              href="/resume.pdf"
+              href="/resume.pdf?v=2"
               download
               className="flex items-center gap-2 px-2 py-2 transition-colors duration-150"
               style={{ color: "var(--fg-muted)" }}
@@ -139,7 +139,7 @@ export default function Navbar() {
           {/* Hamburger & Mobile Theme Toggle */}
           <div className="md:hidden flex items-center gap-4">
             <a
-              href="/resume.pdf"
+              href="/resume.pdf?v=2"
               download
               className="p-2 rounded-full transition-colors duration-150"
               style={{ color: "var(--fg-muted)" }}

@@ -56,7 +56,7 @@ export default function Resume() {
                   A timeline of my academic background and professional experience building software.
                 </p>
                 <a 
-                  href="/resume.pdf" 
+                  href="/resume.pdf?v=2" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="btn-ghost"
