@@ -14,7 +14,7 @@ const CATEGORIES = [
   {
     title: "Tools of the Trade",
     desc: "Streamlining workflows and ensuring code quality.",
-    skills: ["C++", "Git", "GitHub", "Docker", "Postman", "OOP", "DSA", "System Design"],
+    skills: ["C++", "Java", "Python", "Git", "GitHub", "Docker", "Postman", "OOP", "DSA"],
   },
   {
     title: "Exploring the Future",
